@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Opa uchun syurpriz 💫</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      font-family: "Poppins", sans-serif;
+    }
 
+    /* Yulduzlar animatsiyasi */
+    .stars {
+      width: 2px;
+      height: 2px;
+      background: white;
+      position: absolute;
+      animation: blink 2s infinite ease-in-out;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Tugma */
+    button {
+      background: #ffb703;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1rem;
+      color: #000;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ffd166;
+      transform: scale(1.05);
+    }
+
+    video {
+      width: 90%;
+      max-width: 500px;
+      border-radius: 20px;
+      display: none;
+      box-shadow: 0 0 25px rgba(255,255,255,0.2);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 15px;
+      color: #ffd166;
+    }
+  </style>
+</head>
+<body>
+  <div id="stars-container"></div>
+  
+  <h1>Opa uchun kichik syurpriz 💛</h1>
+  <video id="video1" controls>
+    <source src="video1.mp4" type="video/mp4">
+    Sizning brauzeringiz video ko‘rsatishni qo‘llab-quvvatlamaydi.
+  </video>
+
+  <video id="video2" controls>
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+
+  <button id="nextBtn">🎬 Bosib ko‘ring</button>
+
+  <div class="message" id="endMessage">
+    Tug‘ilgan kuning muborak, opa! 💐  
+    <br>Har doim shunday mehrli, nurli va baxtli bo‘l! 💛
+  </div>
+
+  <script>
+    // Yulduzlar yasash
+    const container = document.getElementById("stars-container");
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.classList.add("stars");
+      star.style.top = Math.random() * 100 + "%";
+      star.style.left = Math.random() * 100 + "%";
+      star.style.animationDelay = Math.random() * 2 + "s";
+      container.appendChild(star);
+    }
+
+    // Video boshqaruv
+    const video1 = document.getElementById("video1");
+    const video2 = document.getElementById("video2");
+    const nextBtn = document.getElementById("nextBtn");
+    const endMsg = document.getElementById("endMessage");
+
+    let step = 0;
+
+    nextBtn.addEventListener("click", () => {
+      if (step === 0) {
+        video1.style.display = "block";
+        video1.play();
+        nextBtn.textContent = "▶️ Davomini ko‘rish";
+        step++;
+      } else if (step === 1) {
+        video1.pause();
+        video1.style.display = "none";
+        video2.style.display = "block";
+        video2.play();
+        nextBtn.textContent = "💛 Tugatish";
+        step++;
+      } else {
+        video2.pause();
+        video2.style.display = "none";
+        nextBtn.style.display = "none";
+        document.querySelector("h1").style.display = "none";
+        endMsg.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
